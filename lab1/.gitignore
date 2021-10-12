@@ -2,7 +2,7 @@
 node_modules
 /dist
 
-sql.txt
+minikube
 
 # local env files
 .env.local
