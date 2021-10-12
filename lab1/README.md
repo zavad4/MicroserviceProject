@@ -1,3 +1,4 @@
+# Lab 1
 Розгорнемо сервіси для двох серверів, які повертають нам стрічку "hello from service". Для цього нами було створено [dockerfile](https://github.com/zavad4/MicroserviceProject/blob/main/lab1/service_1/Dockerfile). У нас він складається з одного етапа, оскільки сервер не має залежностей. У іншому випадку (наприклад, якщо проект має залежність sql), dockerfile буде складатись з різних етапів:
 ```
 FROM node:14 AS build
