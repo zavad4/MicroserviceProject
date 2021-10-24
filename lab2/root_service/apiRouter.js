@@ -1,9 +1,9 @@
 const executors = require('./executors').default;
 
 const routes = {
-  '/addBank': { accessRequired: 0, executor: (args) => executors.addBank(args), contentType: 'text/plain' },
+  '/': { accessRequired: 0, executor: (args) => executors.makeCalls(args), contentType: 'text/plain' },
+  '/crash': { accessRequired: 0, executor: (args) => executors.crash(args), contentType: 'text/plain' },
   '/404': { accessRequired: 0, executor: () => ({ data: null, err: '404' }), contentType: 'text/plain' },
-  '/crash': { accessRequired: 0, executor: () => ({ data: null, err: '404' }), contentType: 'text/plain' },
 };
 
 

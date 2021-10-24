@@ -5,8 +5,8 @@ const parseUrlArgs = require('./helpers.js').parseUrlArgs;
 const PORT = process.env.PORT || 7070;
 const URL = 'http://localhost:';
 
-const CRASH = false;
-const CRASH_DELAY_TIME = 2000; //ms
+let CRASH = false;
+const CRASH_DELAY_TIME = 5000; //ms
 
 const execReq = async (req, res, postData) => {
   console.log('New API REQ:', req.method, req.url);
@@ -14,6 +14,10 @@ const execReq = async (req, res, postData) => {
   const urlStr = urlArr[0];
   const argsStr = urlArr[1];
   const route = getRoute(urlStr);
+
+  ///
+  if (req.url === '/crash') CRASH = !CRASH;
+  ///
 
   let argsArr = [];
   if (argsStr) {
@@ -49,5 +53,5 @@ http.createServer(async (req, res) => {
   receiveReq(req, res);
 }).listen(PORT);
 
-console.log(`Api listen on ${URL}${PORT}`);
+console.log(`Some Api listen on ${URL}${PORT}`);
 

@@ -1,10 +1,10 @@
 const srvc = require('../services.config.js');
-const delegate = require('../helpers.js').delegate;
+const wdo = require('../wdo.js');
 
-const addBank = async ({ data, req }) => {
-  const res = await delegate(data, srvc.DBCService + '/addBank', null);
+const addBank = async () => {
+  const res = await wdo.get(srvc.DBCService + '/makeDBCall');
 
-  return res;
+  return { data: res, err: null };
 };
 
 module.exports.default = addBank;
