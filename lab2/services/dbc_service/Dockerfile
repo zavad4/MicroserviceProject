@@ -1,10 +1,8 @@
 FROM node:14 AS build
 
 WORKDIR /usr/src/
-COPY . .
-COPY package*.json ./
-
-RUN ls
+COPY ./services/dbc_service .
+COPY ./services/dbc_service/package*.json ./
 
 RUN npm install
 

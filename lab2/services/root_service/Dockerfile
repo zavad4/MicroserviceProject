@@ -1,10 +1,8 @@
 FROM node:14 AS build
 
 WORKDIR /usr/src/
-COPY . .
-COPY package*.json ./
-
-RUN ls
+COPY ./services/root_service .
+COPY ./services/root_service/package*.json ./
 
 RUN npm install
 

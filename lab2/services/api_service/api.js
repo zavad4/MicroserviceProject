@@ -2,7 +2,7 @@ const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
 
-const PORT = process.env.PORT || 7070;
+const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
 
 let CRASH = false;
@@ -16,7 +16,7 @@ const execReq = async (req, res, postData) => {
   const route = getRoute(urlStr);
 
   ///
-  if (req.url === '/crash') CRASH = !CRASH;
+  if (req.url === '/api/some-api-service/crash') CRASH = !CRASH;
   ///
 
   let argsArr = [];

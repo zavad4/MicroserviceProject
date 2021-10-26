@@ -2,7 +2,7 @@ const srvc = require('../services.config.js');
 const wdo = require('../wdo.js');
 
 const addBank = async () => {
-  const res = await wdo.get(srvc.DBCService + '/makeDBCall');
+  const res = await wdo.get('http://dbc-service/api/dbc-service/makeDBCall');
 
   return { data: res, err: null };
 };

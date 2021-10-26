@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service-1-deploy
+  name: some-api-deploy
 spec:
   selector:
     matchLabels:
-      app: service-1
-  replicas: 1
+      app: some-api-deployment
+  replicas: 2
   template:
     metadata:
       labels:
-        app: service-1
+        app: some-api-deployment
     spec:
       containers:
-      - name: service-1
-        image: la7rodectus/service_1
+      - name: some-api-deployment
+        image: la7rodectus/api
         ports:
         - containerPort: 8080

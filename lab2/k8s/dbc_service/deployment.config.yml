@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service-2-deploy
+  name: dbc-deploy
 spec:
   selector:
     matchLabels:
-      app: service-2
+      app: dbc-deployment
   replicas: 1
   template:
     metadata:
       labels:
-        app: service-2
+        app: dbc-deployment
     spec:
       containers:
-      - name: service-2
-        image: la7rodectus/service_2
+      - name: dbc-deployment
+        image: la7rodectus/dbc
         ports:
         - containerPort: 8080

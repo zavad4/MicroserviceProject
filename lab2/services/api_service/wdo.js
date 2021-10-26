@@ -13,7 +13,9 @@ const get = (URL) => new Promise((resolve, reject) => {
     });
   }).on('error', (err) => {
     console.log('Error: ' + err.message);
-    reject();
+    reject(err);
+  }).on('timeout', (err) => {
+    reject(err);
   });
 
 });

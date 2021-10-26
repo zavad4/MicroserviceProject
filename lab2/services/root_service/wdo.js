@@ -11,10 +11,15 @@ const get = (URL) => new Promise((resolve, reject) => {
       if (respObj.err) resolve(respObj.err);
       resolve(respObj.data);
     });
+    resp.on('error', (err) => {
+      reject(err)
+    })
   }).on('error', (err) => {
     console.log('Error: ' + err.message);
-    reject();
-  });
+    reject(err);
+  }).on('timeout', (err) => {
+    reject(err);
+  });;
 
 });
 

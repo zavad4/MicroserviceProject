@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-1-service
+  name: root-service
 spec:
   type: ClusterIP
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
   selector:
-    app: service-1
+    app: root-service-deployment

@@ -2,7 +2,7 @@ const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
 
-const PORT = process.env.PORT || 7072;
+const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
 
 const execReq = async (req, res, postData) => {
@@ -42,6 +42,5 @@ http.createServer(async (req, res) => {
   receiveReq(req, res);
 }).listen(PORT);
 
-console.log(`DBC api listen on ${URL}${PORT}`);
-
+console.log(`Root api listen on ${URL}${PORT}`);
 
