@@ -7,7 +7,7 @@ __some-api-service__ - тут будемо емулювати нездорову
 
 __root-service__ - сервіс, який робить запити на 2 попередні сервіси, та повертає результат
 
-Для того, щоб зібрати контейнери для всіх необхідних сервісів ми створили два скрипти [docker.sh]() і [k8s.sh]() і потім виконували  
+Для того, щоб зібрати контейнери для всіх необхідних сервісів ми створили два скрипти [docker.sh](https://github.com/zavad4/MicroserviceProject/blob/main/lab2/docker.sh) і [k8s.sh](https://github.com/zavad4/MicroserviceProject/blob/main/lab2/k8s.sh) і потім виконували  
 ```
 $ sh lab2/docker.sh
 $ sh lab2/k8s.sh
@@ -18,9 +18,9 @@ $ sh lab2/k8s.sh
 
 Реалізуємо retry/timeout, для цього будемо використовувати Istio. 
 Нам знадобиться VirtualService - це додатковий проксі,який стоїть перед сервісом на який робиться запит. Саме там ми визначаємо конфігурацію, яка буде перенаправляти трафік з "нездорового" Pod на здоровий. Створюємо відпоідні файли, в яких задаємо налаштування retry/timeout (адреса перенаправлення, кількість спроб та виділених на це секунд, код помилок, які розглядаємо та ін):
-* для  some-api-service [istio.config.yaml]()
-* для  dbc-service [istio.config.yaml]()
-* для  root-service [istio.config.yaml]()
+* для  some-api-service [istio.config.yaml](https://github.com/zavad4/MicroserviceProject/blob/main/lab2/k8s/api_service/istio.config.yml)
+* для  dbc-service [istio.config.yaml](https://github.com/zavad4/MicroserviceProject/blob/main/lab2/k8s/dbc_service/istio.config.yml)
+* для  root-service [istio.config.yaml](https://github.com/zavad4/MicroserviceProject/blob/main/lab2/k8s/root_service/istio.config.yml)
 
 Після "ламаємо" Pod і бачимо, що перенаправлення справді відбувається і середній час запиту зменшується, адже повторний запит надсилається вже на здоровий Pod.
 
