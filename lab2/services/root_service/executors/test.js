@@ -9,16 +9,15 @@ const analyzeReq = (url) => new Promise(async (resolve) => {
 });
 
 const makeCalls = async () => {
-  const res1 = await Promise.all(new Array(10).fill(1).map(() => analyzeReq('http://some-api-service/api/some-api-service/addBank')))
-    .catch((err) => {
-      console.log(err);
-      return { data: null, err };
-    });
-  const res2 = await Promise.all(new Array(10).fill(1).map(() => analyzeReq('http://dbc-service/api/dbc-service/makeDBCall')))
-    .catch((err) => {
-      console.log(err);
-      return { data: null, err };
-    });
+  //const reqArrToSecondSvc = new Array(100).fill(analyzeReq('http://www.google.com/'));
+  const res1 = await Promise.all(new Array(10).fill(1).map(() => analyzeReq('http://www.google.com/')))
+
+    // const arr1 = [];
+    // for (let i = 0; i < 100; i++) {
+    //   arr1.push(analyzeReq('http://www.google.com/'))
+    // }
+
+  const res2 = await Promise.all(new Array(10).fill(1).map(() => analyzeReq('http://www.google.com/')));
   let res = {
     api: {
       avg: 0,
@@ -37,6 +36,7 @@ const makeCalls = async () => {
   const t1Avg = t1.reduce((acc, val) => acc += val) / t1.length;
   const t2Avg = t2.reduce((acc, val) => acc += val) / t2.length;
 
+  console.log(res1)
   res.api.avg = t1Avg + 'ms';
   res.dbc.avg = t2Avg + 'ms';
   res.api.fail = err1.filter(err => err).length;
@@ -45,4 +45,8 @@ const makeCalls = async () => {
   return { data: res, err: null };
 };
 
-module.exports.default = makeCalls;
+
+
+(async () => {
+    console.log(await makeCalls())
+})()

@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
 
 let CRASH = false;
-const CRASH_DELAY_TIME = 5000; //ms
+const CRASH_DELAY_TIME = 15_000; //ms
 
 const execReq = async (req, res, postData) => {
   console.log('New API REQ:', req.method, req.url);

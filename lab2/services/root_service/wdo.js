@@ -7,6 +7,9 @@ const get = (URL) => new Promise((resolve, reject) => {
       data += chunk;
     });
     resp.on('end', () => {
+      if (typeof data === 'string') {
+        return resolve(data);
+      }
       const respObj = JSON.parse(data);
       if (respObj.err) resolve(respObj.err);
       resolve(respObj.data);
