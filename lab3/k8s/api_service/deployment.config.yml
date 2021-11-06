@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: some-api-deploy
+spec:
+  selector:
+    matchLabels:
+      app: some-api-deployment
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: some-api-deployment
+    spec:
+      containers:
+      - name: some-api-deployment
+        image: la7rodectus/api
+        ports:
+        - containerPort: 8080
