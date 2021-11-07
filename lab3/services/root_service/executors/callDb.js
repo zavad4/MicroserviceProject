@@ -15,10 +15,14 @@ const makeDBcall = () => new Promise(async (resolve) => {
     if (err) {
       return resolve({ data: 'ne ok', err });
     }
-    else{
-      return resolve({ data: 'ok', err: null });
-    }
   });
+  let res = [];
+  try {
+    res = await conn.query('select User from mysql.user;');
+  } catch (err) {
+    return resolve({ data: 'ne ok', err });
+  }
+  return resolve({ data: 'ok:' + res, err: null });
 });
 
 module.exports.default = makeDBcall;
