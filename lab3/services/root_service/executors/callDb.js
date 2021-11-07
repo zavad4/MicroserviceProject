@@ -2,16 +2,23 @@ const wdo = require('../wdo.js');
 const mysql = require('mysql');
 
 const connObj = {
-  host: '192.168.39.170',
+  host: 'mysql-service',
   user: 'root',
   password: 'password',
-  port: 3306,
+  //port: 3306,
 };
 
 
-const makeDBcall = async () => {
-  const res = await mysql.createConnection(connObj);
-  return { data: res, err: null };
-};
+const makeDBcall = () => new Promise(async (resolve) => {
+  const conn = await mysql.createConnection(connObj);
+  await conn.connect((err) => {
+    if (err) {
+      return resolve({ data: 'ne ok', err });
+    }
+    else{
+      return resolve({ data: 'ok', err: null });
+    }
+  });
+});
 
 module.exports.default = makeDBcall;

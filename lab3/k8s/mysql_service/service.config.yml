@@ -3,8 +3,8 @@ kind: Service
 metadata:
   name: mysql-service
 spec:
-  type: LoadBalancer
   ports:
   - port: 3306
   selector:
     app: mysql-deploy
+  clusterIP: None
