@@ -2,7 +2,7 @@ const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const URL = 'http://localhost:';
 
 const execReq = async (req, res, postData) => {

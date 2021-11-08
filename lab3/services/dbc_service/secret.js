@@ -1,9 +1,9 @@
 
 const dbConnData = {
-  host: 'sql11.freemysqlhosting.net',
-  user: 'sql11439711',
-  password: 'VzUfMWF3Ze',
-  database: 'sql11439711'
+  host: 'sql4.freemysqlhosting.net',
+  user: 'sql4448941',
+  password: 'cPG4z3wKKX',
+  database: 'sql4448941'
 };
 
 module.exports = {
