@@ -15,5 +15,8 @@
     "k8n"
   ],
   "author": "-",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "kafkajs": "^1.15.0"
+  }
 }

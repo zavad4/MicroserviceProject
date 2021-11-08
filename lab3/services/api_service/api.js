@@ -55,3 +55,26 @@ http.createServer(async (req, res) => {
 
 console.log(`Some Api listen on ${URL}${PORT}`);
 
+
+(async () => {
+  const { Kafka } = require('kafkajs');
+
+  const kafka = new Kafka({
+    clientId: 'kafka',
+    brokers: ['kafka:9092']
+  });
+  
+  const consumer = kafka.consumer({ groupId: 'email-group' })
+
+  await consumer.connect()
+  await consumer.subscribe({ topic: 'email-topic', fromBeginning: true })
+  
+  await consumer.run({
+    eachMessage: async ({ topic, partition, message }) => {
+      console.log({
+        value: message.value.toString(),
+      })
+    },
+  })
+})()
+

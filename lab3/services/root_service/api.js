@@ -45,6 +45,24 @@ http.createServer(async (req, res) => {
 console.log(`Root api listen on ${URL}${PORT}`);
 
 
+(async () => {
+  const { Kafka } = require('kafkajs');
 
+  const kafka = new Kafka({
+    clientId: 'kafka',
+    brokers: ['kafka:9092']
+  });
+  
+  
+  const producer = kafka.producer();
+  
+  await producer.connect();
+  await producer.send({
+    topic: 'email-topic',
+    messages: [
+      { value: 'Hello KafkaJS user!' },
+    ],
+  });
+})()
 
 

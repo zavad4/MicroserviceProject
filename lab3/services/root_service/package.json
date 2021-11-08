@@ -17,6 +17,7 @@
   "author": "-",
   "license": "MIT",
   "dependencies": {
+    "kafkajs": "^1.15.0",
     "mysql": "^2.18.1"
   }
 }
