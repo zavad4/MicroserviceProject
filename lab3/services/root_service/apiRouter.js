@@ -4,6 +4,7 @@ const routes = {
   '/': { accessRequired: 0, executor: (args) => executors.makeCalls(args), contentType: 'text/plain' },
   '/crash': { accessRequired: 0, executor: (args) => executors.crash(args), contentType: 'text/plain' },
   '/callDb': { accessRequired: 0, executor: () => executors.callDb(), contentType: 'text/plain' },
+  '/addEmail': { accessRequired: 0, executor: (args) => executors.addEmail(args), contentType: 'text/plain' },
   '/404': { accessRequired: 0, executor: () => ({ data: null, err: '404' }), contentType: 'text/plain' },
 };
 
