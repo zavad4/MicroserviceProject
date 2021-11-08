@@ -14,7 +14,7 @@ const execReq = async (req, res, postData) => {
 
   let argsArr = [];
   if (argsStr) {
-    argsArr = Object.values(parseUrlArgs(argsStr));
+    argsArr = parseUrlArgs(argsStr); //Object.values(parseUrlArgs(argsStr));
     console.log(`Request ${req.url} args:`, argsArr);
   }
 
