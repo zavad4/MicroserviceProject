@@ -49,20 +49,21 @@ console.log(`Root api listen on ${URL}${PORT}`);
   const { Kafka } = require('kafkajs');
 
   const kafka = new Kafka({
-    clientId: 'kafka',
+    clientId: 'kafka-client',
     brokers: ['kafka:9092']
   });
-  
   
   const producer = kafka.producer();
   
   await producer.connect();
-  await producer.send({
-    topic: 'email-topic',
-    messages: [
-      { value: 'Hello KafkaJS user!' },
-    ],
-  });
+  setInterval(() => {
+    producer.send({
+      topic: 'email-topic',
+      messages: [
+        { value: 'Hello KafkaJS user!' },
+      ],
+    });
+  }, 5000)
 })()
 
 
