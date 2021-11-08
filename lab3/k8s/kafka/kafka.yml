@@ -40,13 +40,13 @@ spec:
               value: zookeeper:2181
             - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
               value: "true"
-#          volumeMounts:
-#            - mountPath: /bitnami/kafka
-#              name: kafka
-#      volumes:
-#        - name: kafka
-#          persistentVolumeClaim:
-#            claimName: demo-storage
+          volumeMounts:
+            - mountPath: /bitnami/kafka
+              name: kafka
+      volumes:
+        - name: kafka
+          persistentVolumeClaim:
+            claimName: kafka-storage
 ---
 apiVersion: v1
 kind: Service
