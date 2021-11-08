@@ -74,15 +74,15 @@ class DBC {
     }
   });
 
-  insertBank = (updateObj) => Procedures.insertIntoTable(this._conn, 'Banks', updateObj);
+  insertEmail = (updateObj) => Procedures.insertIntoTable(this._conn, 'EMAILS', updateObj);
 
-  updateBankByName = (name, updateObj) => Procedures.updateTable(this._conn, 'Banks', 'bankName', name, updateObj);
+  updateEmailById = (id, updateObj) => Procedures.updateTable(this._conn, 'EMAILS', 'email_id', id, updateObj);
 
-  deleteFromBankByName = (name) => Procedures.deleteRowsFromTable(this._conn, 'Banks', 'bankName', name);
+  deleteFromEmailById = (id) => Procedures.deleteRowsFromTable(this._conn, 'EMAILS', 'email_id', id);
 
-  getAllBanks = () => Procedures.getAllFromTable(this._conn, 'Banks');
+  getAllEmails = () => Procedures.getAllFromTable(this._conn, 'EMAILS');
 
-  getBankByName = (name) => Procedures.getFromTableBy(this._conn, 'Banks', 'bankName', name);
+  getEmailById = (id) => Procedures.getFromTableBy(this._conn, 'EMAILS', 'email_id', id);
 
 }
 
