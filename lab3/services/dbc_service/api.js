@@ -2,7 +2,7 @@ const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
 const wrpKafka = require('./kafka.js');
-const DBC = require('./db/dbc.js');
+const DBC = require('./db/dbc.js').default;
 
 const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
@@ -48,8 +48,9 @@ const saveEmail = async (msg) => {
   if (err) return { data: null, err };
   try {
     await dbc.insertEmail({ 
-      email_str: msg.email,
+      email_str: msg.value.toString(),
     });
+    await dbc.connDestroy();
     return { data: res, err: null };
   } catch (err) {
     return { data: null, err };

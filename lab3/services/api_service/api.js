@@ -53,7 +53,9 @@ const receiveReq = async (req, res) => {
 
 const sendMail = async (msg) => {
   console.log('sendMail called');
-  await executors.default.notificate({ email: msg.email });
+  console.log('msg.email', msg.value.toString());
+  await executors.default.notificate({argsArr: { email: msg.value.toString() }});
+  wrpKafka.send('save-email-topic', { value: msg.value.toString() });
 }
 
 (async () => {
