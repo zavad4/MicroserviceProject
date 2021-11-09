@@ -1,6 +1,8 @@
 const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
+const wrpKafka = require('./kafka.js');
+const DBC = require('./db/dbc.js');
 
 const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
@@ -38,10 +40,35 @@ const receiveReq = async (req, res) => {
   });
 };
 
-http.createServer(async (req, res) => {
-  receiveReq(req, res);
-}).listen(PORT);
 
-console.log(`DBC api listen on ${URL}${PORT}`);
+const saveEmail = async (msg) => {
+  console.log('saveEmail called');
+  const dbc = new DBC();
+  const err = await dbc.init();
+  if (err) return { data: null, err };
+  try {
+    await dbc.insertEmail({ 
+      email_str: msg.email,
+    });
+    return { data: res, err: null };
+  } catch (err) {
+    return { data: null, err };
+  }
+}
+
+(async () => {
+  await wrpKafka.init();
+  wrpKafka.subscribe({ topic: 'save-email-topic', fromBeginning: true });
+  wrpKafka.addExecutor('save-email-topic', saveEmail);
+  wrpKafka.startConsumer();
+
+  http.createServer(async (req, res) => {
+    receiveReq(req, res);
+  }).listen(PORT);
+  
+  console.log(`DBC api listen on ${URL}${PORT}`);
+  
+  
+})()
 
 

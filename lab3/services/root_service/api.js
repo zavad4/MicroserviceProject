@@ -1,6 +1,7 @@
 const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
+const wrpKafka = require('./kafka.js');
 
 const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
@@ -15,6 +16,7 @@ const execReq = async (req, res, postData) => {
   let argsArr = [];
   if (argsStr) {
     argsArr = parseUrlArgs(argsStr); //Object.values(parseUrlArgs(argsStr));
+    argsArr.wrpKafka = wrpKafka;
     console.log(`Request ${req.url} args:`, argsArr);
   }
 
@@ -38,32 +40,22 @@ const receiveReq = async (req, res) => {
   });
 };
 
-http.createServer(async (req, res) => {
-  receiveReq(req, res);
-}).listen(PORT);
-
 console.log(`Root api listen on ${URL}${PORT}`);
 
 
-(async () => {
-  const { Kafka } = require('kafkajs');
+const errorExecutor = (msg) => {
+  console.log(msg);
+}
 
-  const kafka = new Kafka({
-    clientId: 'kafka-client',
-    brokers: ['kafka:9092']
-  });
-  
-  const producer = kafka.producer();
-  
-  await producer.connect();
-  setInterval(() => {
-    producer.send({
-      topic: 'email-topic',
-      messages: [
-        { value: 'Hello KafkaJS user!' },
-      ],
-    });
-  }, 5000)
+(async () => {
+  await wrpKafka.init();
+  wrpKafka.subscribe({ topic: 'errors-topic', fromBeginning: true });
+  wrpKafka.addExecutor('errors-topic', errorExecutor);
+  wrpKafka.startConsumer();
+
+  http.createServer(async (req, res) => {
+    receiveReq(req, res);
+  }).listen(PORT);
 })()
 
 
