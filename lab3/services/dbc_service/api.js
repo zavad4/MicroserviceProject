@@ -50,7 +50,7 @@ const saveEmail = async (msg) => {
     await dbc.insertEmail({ 
       email_str: msg.value.toString(),
     });
-    await dbc.connDestroy();
+    dbc.connDestroy();
     return { data: res, err: null };
   } catch (err) {
     return { data: null, err };
