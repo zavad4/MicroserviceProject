@@ -1,6 +1,8 @@
 const http = require('http');
 const getRoute = require('./apiRouter.js').getRoute;
 const parseUrlArgs = require('./helpers.js').parseUrlArgs;
+const wrpKafka = require('./kafka.js');
+const executors = require('./executors');
 
 const PORT = process.env.PORT || 8080;
 const URL = 'http://localhost:';
@@ -49,32 +51,24 @@ const receiveReq = async (req, res) => {
   });
 };
 
-http.createServer(async (req, res) => {
-  receiveReq(req, res);
-}).listen(PORT);
-
-console.log(`Some Api listen on ${URL}${PORT}`);
-
+const sendMail = async (msg) => {
+  console.log('sendMail called');
+  console.log('msg.email', msg.value.toString());
+  await executors.default.notificate({argsArr: { email: msg.value.toString() }});
+  wrpKafka.send('save-email-topic', { value: msg.value.toString() });
+}
 
 (async () => {
-  const { Kafka } = require('kafkajs');
-
-  const kafka = new Kafka({
-    clientId: 'kafka',
-    brokers: ['kafka:9092']
-  });
+  await wrpKafka.init();
+  wrpKafka.subscribe({ topic: 'email-topic', fromBeginning: true });
+  wrpKafka.addExecutor('email-topic', sendMail);
+  wrpKafka.startConsumer();
   
-  const consumer = kafka.consumer({ groupId: 'email-group' })
-
-  await consumer.connect()
-  await consumer.subscribe({ topic: 'email-topic', fromBeginning: true })
+  http.createServer(async (req, res) => {
+    receiveReq(req, res);
+  }).listen(PORT);
   
-  await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-      console.log({
-        value: message.value.toString(),
-      })
-    },
-  })
+  console.log(`Some Api listen on ${URL}${PORT}`);
+  
 })()
 

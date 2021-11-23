@@ -24,7 +24,9 @@ async function mail(emailTo) {
 const notificate = async (args) => {
   try {
       const {email} = args.argsArr;
+      console.log('email:', email);
       const info = await mail(email);
+      console.log('info', info);
       return { data: info, err: null };
   } catch (err) {
       return { data: null, err};

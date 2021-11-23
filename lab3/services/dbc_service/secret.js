@@ -1,10 +1,17 @@
 
+// const dbConnData = {
+//   host: 'sql11.freemysqlhosting.net',
+//   user: 'sql11450005',
+//   password: 'IyQZbHAsAd',
+//   database: 'sql11450005'
+// };
+
 const dbConnData = {
-  host: 'sql4.freemysqlhosting.net',
-  user: 'sql4448941',
-  password: 'cPG4z3wKKX',
-  database: 'sql4448941'
-};
+    host: 'mysql-service',
+    user: 'newuser',
+    password: 'password',
+    database: 'EmailsDB'
+  };
 
 module.exports = {
   dbConnData,
