@@ -7,3 +7,4 @@ Team members
 
 * [Lab1](https://github.com/zavad4/MicroserviceProject/blob/main/lab1/README.md) 
 * [Lab2](https://github.com/zavad4/MicroserviceProject/blob/main/lab2/README.md)
+* [Lab3](https://github.com/zavad4/MicroserviceProject/blob/main/lab3/README.md)
