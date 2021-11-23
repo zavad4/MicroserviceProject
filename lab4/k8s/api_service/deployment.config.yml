@@ -15,9 +15,10 @@ spec:
       containers:
       - name: some-api-deployment
         image: la7rodectus/api
-      - name: VAULT_ADDR
-        value: "http://$EXTERNAL_VAULT_ADDR:8200"
-      - name: VAULT_TOKEN
-        value: root
+        env:
+        - name: VAULT_ADDR
+          value: "http://$EXTERNAL_VAULT_ADDR:8200"
+        - name: VAULT_TOKEN
+          value: root
         ports:
         - containerPort: 8080
