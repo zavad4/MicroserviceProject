@@ -15,5 +15,14 @@ spec:
       containers:
       - name: dbc-deployment
         image: la7rodectus/dbc
+        env:
+        - name: VAULT_ADDR
+          value: "http://$EXTERNAL_VAULT_ADDR:8200"
+        - name: VAULT_TOKEN
+          value: root
+        - name: ROLE_ID
+          value: 5bb01cae-3e41-7072-5425-647a34512e49
+        - name: SECRET_ID
+          value: 34703233-c334-523b-94b7-f40a9fca3585
         ports:
         - containerPort: 8080
