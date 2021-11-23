@@ -7,7 +7,7 @@ const vault = require("node-vault")({
 const roleId = process.env.ROLE_ID;
 const secretId = process.env.SECRET_ID;
 
-const getConnection = () => new Promise(async (resolve, reject) => {
+const getConnection = () => new Promise((resolve, reject) => {
   const result = await vault.approleLogin({
     role_id: roleId,
     secret_id: secretId,
