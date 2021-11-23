@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: root-service-deploy
+spec:
+  selector:
+    matchLabels:
+      app: root-service-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: root-service-deployment
+    spec:
+      containers:
+      - name: root-service-deployment
+        image: la7rodectus/root-service
+        ports:
+        - containerPort: 8080
